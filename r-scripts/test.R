@@ -7,9 +7,9 @@ library(RMySQL)
 # Connect to MySQL
 con <- dbConnect(
   MySQL(),
-  user = 'root',
-  password = 'root',
-  dbname = 'mydb',
+  user = Sys.getenv("MYSQL_USER"),
+  password = Sys.getenv("MYSQL_PASSWORD"),
+  dbname = Sys.getenv("MYSQL_DATABASE"),
   host = Sys.getenv("MYSQL_HOST"),
   port = 3306
 )

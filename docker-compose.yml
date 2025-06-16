@@ -13,6 +13,20 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+  
+  r:
+    build:
+      context: .
+      dockerfile: Dockerfile.r
+    container_name: r_script_runner
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    command: Rscript /app/r-scripts/test.R
 
 volumes:
   mysql-data:
