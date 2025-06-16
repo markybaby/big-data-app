@@ -12,7 +12,7 @@ on:
       - 'r/Dockerfile.r'
 
 jobs:
-  r-lint-and-docker:
+  r-linter:
     runs-on: ubuntu-latest
 
     steps:
