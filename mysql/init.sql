@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS mydb;
 USE mydb;
 
 CREATE TABLE IF NOT EXISTS coe-revalidation (
-    month VARCHAR(7),
+    month DATE,
     type VARCHAR(10),
     category VARCHAR(10),
     number_revalidated INT,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS coe-revalidation (
 );
 
 CREATE TABLE IF NOT EXISTS coe-results (
-    month VARCHAR(7),
+    month DATE,
     bidding_no INT,
     category VARCHAR(10),
     quota INT,
