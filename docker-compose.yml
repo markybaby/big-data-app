@@ -18,7 +18,6 @@ services:
       retries: 5
     volumes:
       - mysql-data:/var/lib/mysql
-  
   r:
     build:
       context: .
@@ -27,13 +26,20 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-      
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: mydb
     command: Rscript /app/r-scripts/test.R
-
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - grafana-data:/var/lib/grafana
 volumes:
   mysql-data:
