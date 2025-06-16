@@ -29,5 +29,3 @@ SET
     bids_success = CAST(REPLACE(@bids_success, ',', '') AS UNSIGNED),
     bids_received = CAST(REPLACE(@bids_received, ',', '') AS UNSIGNED),
     premium = CAST(REPLACE(@premium, ',', '') AS UNSIGNED);
-
-    SELECT * FROM coe_results LIMIT 5;
