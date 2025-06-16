@@ -18,5 +18,8 @@ con <- dbConnect(
 result <- dbGetQuery(con, "SELECT COUNT(*) AS count FROM coe_results")
 print(result)
 
+# Debug output
+print("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK")
+
 # Clean up
 dbDisconnect(con)
