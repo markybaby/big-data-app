@@ -21,7 +21,9 @@ CREATE TABLE IF NOT EXISTS coe-results (
 );
 
 CREATE TABLE IF NOT EXISTS monthly-analysis (
-    id INT PRIMARY KEY,
-    name VARCHAR(255),
-    price DECIMAL(10,2)
+    month DATE,
+    category VARCHAR(10),
+    number_revalidated INT,
+    premium INT,
+    PRIMARY KEY (month, category)
 );
