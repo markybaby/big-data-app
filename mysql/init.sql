@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS mydb;
 USE mydb;
 
-CREATE TABLE IF NOT EXISTS coe-revalidation (
+CREATE TABLE IF NOT EXISTS coe_revalidation (
     month DATE,
     type VARCHAR(10),
     category VARCHAR(10),
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS coe-revalidation (
     PRIMARY KEY (month, type, category)
 );
 
-CREATE TABLE IF NOT EXISTS coe-results (
+CREATE TABLE IF NOT EXISTS coe_results (
     month DATE,
     bidding_no INT,
     category VARCHAR(10),
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS coe-results (
     PRIMARY KEY (month, bidding_no, category)
 );
 
-CREATE TABLE IF NOT EXISTS monthly-analysis (
+CREATE TABLE IF NOT EXISTS monthly_analysis (
     month DATE,
     category VARCHAR(10),
     number_revalidated INT,

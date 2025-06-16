@@ -1,0 +1,15 @@
+# Dockerfile.mysql
+
+FROM mysql:8.0
+
+# Set environment variables to allow automatic DB setup
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=mydb
+
+# Copy initialization scripts into Docker's expected directory
+# These will run *automatically* on container startup
+COPY ./mysql/init.sql /docker-entrypoint-initdb.d/
+COPY ./mysql/load-data.sql /docker-entrypoint-initdb.d/
+COPY ./mysql/M10-Monthly_COE_Revalidation.csv /docker-entrypoint-initdb.d/
+COPY ./mysql/M11-coe_results.csv /docker-entrypoint-initdb.d/
+

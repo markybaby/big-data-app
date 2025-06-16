@@ -3,11 +3,12 @@ version: '3.8'
 services:
   mysql:
     build:
-      context: ./mysql
+      context: .
       dockerfile: Dockerfile.mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
+    command: --secure-file-priv=""
     ports:
       - "3306:3306"
     volumes:
