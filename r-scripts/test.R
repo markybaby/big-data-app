@@ -10,7 +10,7 @@ con <- dbConnect(
   user = 'root',
   password = 'root',
   dbname = 'mydb',
-  host = 'mysql', 
+  host = Sys.getenv("MYSQL_HOST"),
   port = 3306
 )
 
