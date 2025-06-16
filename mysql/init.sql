@@ -12,3 +12,9 @@ CREATE TABLE IF NOT EXISTS coe-results (
     product_id INT,
     quantity INT
 );
+
+CREATE TABLE IF NOT EXISTS monthly-analysis (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10,2)
+);
