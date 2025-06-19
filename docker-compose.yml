@@ -1,5 +1,3 @@
-
-version: '3.8'
 services:
   mysql:
     build:
@@ -32,14 +30,29 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: mydb
     command: Rscript /app/r-scripts/test.R
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
+  r-health:
+    build:
+      context: .
+      dockerfile: r/Dockerfile.r
+    command: Rscript /app/r-scripts/r-health.R
     depends_on:
       mysql:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "8000:8000"
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      r-health:
+        condition: service_healthy
     volumes:
-      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
 volumes:
   mysql-data:
