@@ -24,6 +24,6 @@ CREATE TABLE IF NOT EXISTS monthly_analysis (
     month DATE,
     category VARCHAR(10),
     number_revalidated INT,
-    premium INT,
+    avg_premium INT,
     PRIMARY KEY (month, category)
 );
