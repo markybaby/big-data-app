@@ -40,29 +40,29 @@ Sys.sleep(10)  # Give test.R some time to run and insert data
 cat("[CHECK] Now checking if monthly_analysis table has data...\n")
 check_ready <- function() {
   tryCatch({
-    con <- dbConnect(
+    con <- DBI::dbConnect(
       RMySQL::MySQL(),
       dbname = "mydb",
       host = "mysql",
       user = "root",
       password = "root"
     )
-    
-    result <- dbGetQuery(con, "SELECT COUNT(*) AS count FROM monthly_analysis;")
-    dbDisconnect(con)
-    
+    result <- DBI::dbGetQuery(con, "SELECT COUNT(*) AS count FROM monthly_analysis;")
+    DBI::dbDisconnect(con)
     return(result$count[1] > 0)
   }, error = function(e) {
-    return(FALSE)  # Return FALSE on connection or query failure
+    FALSE  # Return FALSE on connection or query failure
   })
 }
 
 app <- list(
   call = function(req) {
     if (check_ready()) {
-      list(status = 200L, headers = list("Content-Type" = "text/plain"), body = "OK")
+      list(status = 200L, headers = list("Content-Type" = "text/plain"), 
+        body = "OK")
     } else {
-      list(status = 503L, headers = list("Content-Type" = "text/plain"), body = "Data not ready")
+      list(status = 503L, headers = list("Content-Type" = "text/plain"), 
+        body = "Data not ready")
     }
   }
 )

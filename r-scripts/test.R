@@ -47,20 +47,10 @@ con <- dbConnect(
   host = "mysql",
   port = 3306
 )
-
 print("[DEBUG] successfully connected to MySQL")
-
-# Debug output
-# print("[DEBUG] running test query now...")
-
-# Run test query
-# result <- dbGetQuery(con, "SELECT COUNT(*) AS count FROM coe_results")
-# print(result)
 
 # Truncate monthly_analysis table
 dbExecute(con, "TRUNCATE TABLE monthly_analysis;")
-
-# cat("Inserted test data into monthly_analysis table.\n")
 
 # Load data from coe_revalidation and coe_results tables
 reval <- dbReadTable(con, "coe_revalidation")
@@ -92,22 +82,11 @@ results_summary <- results_summary %>%
         category = toupper(trimws(category))
 )
 
-# Debug output for processed data
-# print("[DEBUG] reval_summary sample:")
-# print(head(reval_summary, 10))
-
-# print("[DEBUG] results_summary sample:")
-# print(head(results_summary, 10))
-
 # === Merging Data ===
 print("[DEBUG] Merging data...")
 analysis <- reval_summary %>%
     inner_join(results_summary, by = c("month", "category")) %>%
     arrange(month, category)
-
-# Debug output for merged data
-# print("[DEBUG] analysis sample after join:")
-# print(head(analysis, 10))
 
 # Replace NULLs with 0s if needed
 analysis$number_revalidated[is.na(analysis$number_revalidated)] <- 0
@@ -120,7 +99,7 @@ dbExecute(con, "DELETE FROM monthly_analysis")
 
 # Insert rows
 print("Inserting processed data into monthly_analysis table...")
-#dbWriteTable(con, "monthly_analysis", analysis, append = TRUE, row.names = FALSE)
+
 for (i in 1:nrow(analysis)) {
   # Safely build the SQL string using sprintf
   row <- analysis[i, ]
