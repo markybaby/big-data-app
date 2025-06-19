@@ -62,31 +62,31 @@ print("[DEBUG] Processing data...")
 # Sum of number_revalidated by month and category
 reval_summary <- reval %>%
   group_by(month, category) %>%
-    summarise(number_revalidated = sum(number_revalidated), .groups = "drop")
+  summarise(number_revalidated = sum(number_revalidated), .groups = "drop")
 
 # Average premium by month and category
 results_summary <- results %>%
   group_by(month, category) %>%
-    summarise(avg_premium = round(mean(premium), 2), .groups = "drop")
+  summarise(avg_premium = round(mean(premium), 2), .groups = "drop")
 
 # Ensure month is Date and category is uppercase (or lowercase, just consistent)
 reval_summary <- reval_summary %>%
   mutate(
     month = as.Date(month),
-        category = toupper(trimws(category))
+    category = toupper(trimws(category))
   )
 
 results_summary <- results_summary %>%
   mutate(
     month = as.Date(month),
-        category = toupper(trimws(category))
+    category = toupper(trimws(category))
   )
 
 # === Merging Data ===
 print("[DEBUG] Merging data...")
 analysis <- reval_summary %>%
   inner_join(results_summary, by = c("month", "category")) %>%
-    arrange(month, category)
+  arrange(month, category)
 
 # Replace NULLs with 0s if needed
 analysis$number_revalidated[is.na(analysis$number_revalidated)] <- 0
