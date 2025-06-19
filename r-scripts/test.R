@@ -106,8 +106,8 @@ analysis <- reval_summary %>%
     arrange(month, category)
 
 # Debug output for merged data
-print("[DEBUG] analysis sample after join:")
-print(head(analysis, 10))
+# print("[DEBUG] analysis sample after join:")
+# print(head(analysis, 10))
 
 # Replace NULLs with 0s if needed
 analysis$number_revalidated[is.na(analysis$number_revalidated)] <- 0
@@ -119,7 +119,7 @@ analysis$avg_premium[is.na(analysis$avg_premium)] <- 0
 dbExecute(con, "DELETE FROM monthly_analysis")
 
 # Insert rows
-print("[DEBUG] Inserting processed data into monthly_analysis table...")
+print("Inserting processed data into monthly_analysis table...")
 #dbWriteTable(con, "monthly_analysis", analysis, append = TRUE, row.names = FALSE)
 for (i in 1:nrow(analysis)) {
   # Safely build the SQL string using sprintf
