@@ -47,7 +47,8 @@ check_ready <- function() {
       user = "root",
       password = "root"
     )
-    result <- DBI::dbGetQuery(con, "SELECT COUNT(*) AS count FROM monthly_analysis;")
+    result <- DBI::dbGetQuery(con, "SELECT COUNT(*) AS count 
+           FROM monthly_analysis;")
     DBI::dbDisconnect(con)
     return(result$count[1] > 0)
   }, error = function(e) {
@@ -58,11 +59,11 @@ check_ready <- function() {
 app <- list(
   call = function(req) {
     if (check_ready()) {
-      list(status = 200L, headers = list("Content-Type" = "text/plain"), 
-        body = "OK")
+      list(status = 200L, headers = list("Content-Type" = "text/plain"),
+           body = "OK")
     } else {
-      list(status = 503L, headers = list("Content-Type" = "text/plain"), 
-        body = "Data not ready")
+      list(status = 503L, headers = list("Content-Type" = "text/plain"),
+           body = "Data not ready")
     }
   }
 )
